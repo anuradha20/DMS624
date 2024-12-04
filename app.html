@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; }
+        input, select, button { padding: 8px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Inventory Management</h1>
+
+    <h2>Current Inventory</h2>
+    <table>
+        <tr>
+            <th>Tire ID</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Reorder Point</th>
+            <th>Supplier ID</th>
+        </tr>
+        {% for item in inventory_items %}
+        <tr>
+            <td>{{ item.TireID }}</td>
+            <td>{{ item.TireType }}</td>
+            <td>{{ item.QuantityInStock }}</td>
+            <td>{{ item.ReorderPoint }}</td>
+            <td>{{ item.SupplierID }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Add a New Tire</h2>
+    <form method="POST" action="/add_tire">
+        <input type="text" name="tire_type" placeholder="Tire Type" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="number" name="reorder_point" placeholder="Reorder Point" required>
+        <input type="number" name="supplier_id" placeholder="Supplier ID">
+        <button type="submit">Add Tire</button>
+    </form>
+
+    <h2>Place an Order</h2>
+    <form method="POST" action="/place_order">
+        <input type="number" name="tire_id" placeholder="Tire ID" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="date" name="order_date" required>
+        <input type="date" name="delivery_date" required>
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>
